@@ -23,10 +23,21 @@ class HashTable:
                     return current_bucket[i][1]
         return "unidentified"
 
+    def keys(self):
+        keys_array = []
+        for i in range(len(self.data)):
+            if self.data[i]:
+                # This solution only works whit large sizes
+                keys_array.append(self.data[i][0][0])
+                # This however works with all sizes or whit possible collision.
+                # for j in range(len(self.data[i])):
+                #     keys_array.append(self.data[i][j][0])
+        return keys_array
 
-myHashTable = HashTable(2)
+
+myHashTable = HashTable(50)
 myHashTable.set('grapes', 10000)
 print(myHashTable.get('grapes'))
 myHashTable.set('apples', 9)
 print(myHashTable.get('apples'))
-print("Data ",myHashTable.data)
+print("Keys ",myHashTable.keys())
