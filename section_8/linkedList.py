@@ -64,16 +64,35 @@ class LinkedList:
         self.length += 1
         return self
 
+    def remove(self, index):
+        if index == 1:
+            self.head = self.head.next
+            self.length -= 1
+            return self
 
-linked_list = LinkedList(10)
-linked_list.append(5)
-linked_list.append(16)
-linked_list.append(45)
-linked_list.append(123)
-linked_list.append(54)
-linked_list.append(6)
-linked_list.append(57)
-linked_list.append(23)
-linked_list.prepend(1)
+        # Remove
+        lead = self.head
+        for i in range(index - 2):
+            lead = lead.next
+
+        unwanted = lead.next
+        lead.next = unwanted.next
+        self.length -= 1
+
+        return self.printList()
+
+
+linked_list = LinkedList(10) # 2
+linked_list.append(5) # 3
+linked_list.append(16) # 4
+linked_list.append(45) # 5
+linked_list.append(123) # 6
+linked_list.append(54) # 7
+linked_list.append(6) # 8
+linked_list.append(57) # 9
+linked_list.append(23) # 10
+linked_list.prepend(1) # 1
 linked_list.insert(6, 19)
+linked_list.remove(6)
+
 print(linked_list.printList())
