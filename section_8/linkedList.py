@@ -74,7 +74,6 @@ class LinkedList:
         lead = self.head
         for i in range(index - 2):
             lead = lead.next
-
         unwanted = lead.next
         lead.next = unwanted.next
         self.length -= 1
@@ -93,6 +92,6 @@ linked_list.append(57) # 9
 linked_list.append(23) # 10
 linked_list.prepend(1) # 1
 linked_list.insert(6, 19)
-linked_list.remove(6)
+linked_list.remove(47)
 
 print(linked_list.printList())
