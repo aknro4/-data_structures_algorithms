@@ -2,6 +2,7 @@ class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
+        self.prev = None
 
 
 class LinkedList:
@@ -11,17 +12,20 @@ class LinkedList:
         self.tail = self.head
         self.length = 1
 
+    # End of the list
     def append(self, value):
         new_node = Node(value)
+        new_node.prev = self.tail
         self.tail.next = new_node
         self.tail = new_node
         self.length += 1
 
         return self
-
+    # add new node to the beginning of the list
     def prepend(self, value):
         new_node = Node(value)
         new_node.next = self.head
+        self.head.prev = new_node
         self.head = new_node
         self.length += 1
 
@@ -33,6 +37,7 @@ class LinkedList:
         while current_node != None:
             array.append(current_node.value)
             current_node = current_node.next
+
         return array
 
     # Loop through the linked list. When at the index. set previous nodes next value to new inserted node.
@@ -59,6 +64,8 @@ class LinkedList:
         aft = pre.next
         new_node = Node(value)
         new_node.next = aft
+        new_node.pre = pre
+        pre.prev = new_node
         # Previous nodes new next value is the inserted value.
         pre.next = new_node
         self.length += 1
@@ -92,6 +99,8 @@ linked_list.append(57) # 9
 linked_list.append(23) # 10
 linked_list.prepend(1) # 1
 linked_list.insert(6, 19)
-linked_list.remove(47)
+
 
 print(linked_list.printList())
+
+

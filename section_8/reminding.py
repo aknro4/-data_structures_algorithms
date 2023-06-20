@@ -15,9 +15,8 @@ class LinkedList:
     def append(self, value):
         new_node = Node(value)
         # Adds the new node to the end
+        self.tail.next = new_node
         self.tail = new_node
-        # New next value to the head.
-        self.head.next = self.tail
         self.length += 1
 
         return self
@@ -42,8 +41,8 @@ class LinkedList:
             return self.append(value)
 
         leader = self.head
-        while index - 2 >= self.length:
-            leader = self.head
+        for i in range(index - 2):
+            leader = leader.next
         # Current nodes next node do not know better name for it
         after = leader.next
         new_node = Node(value)
@@ -51,7 +50,6 @@ class LinkedList:
         new_node.next = after
         # and the current node or leader node next is the new node
         leader.next = new_node
-
         self.length += 1
 
         return self
@@ -63,6 +61,7 @@ class LinkedList:
             return self.printlist()
         # Issue, if we want to remove last node. WE get an error of NoneType.
         # Because the last nodes next node does not exist. So the second last node should have next value of none.
+        # Instead of trying to access the next node which does not exist
         leader = self.head
         for i in range(index - 2):
             leader = leader.next
@@ -80,10 +79,49 @@ class LinkedList:
             current_node = current_node.next
         return array
 
+    def reverse(self):
+        if self.length == 1:
+            return self.printlist()
+
+        first = self.head
+        # Tail is now first item
+        self.tail = self.head
+        # Hold next node from the first node
+        second = first.next
+        while second:
+            # Holds third node
+            temp = second.next
+
+            # Second node next node which is third node, is now first node.
+            second.next = first
+
+            # First node is second node
+            first = second
+
+            # Second becomes third
+            second = temp
+
+        self.head.next = None
+        self.head = first
+
+        return self.printlist()
+
+
 
 linked_list = LinkedList(10)
-linked_list.append(12)
-linked_list.prepend(9)
-linked_list.remove(5)
+linked_list.append(5) # 3
+linked_list.append(16) # 4
+linked_list.append(45) # 5
+linked_list.append(123) # 6
+linked_list.append(54) # 7
+linked_list.append(6) # 8
+linked_list.append(57) # 9
+linked_list.append(23) # 10
+linked_list.prepend(1) # 1
+linked_list.insert(index=6, value=19)
 
 print(linked_list.printlist())
+
+print(linked_list.reverse())
+
+
