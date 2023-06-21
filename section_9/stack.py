@@ -17,10 +17,13 @@ class Stack:
     # remove/pop the top item
     def pop(self):
         self.length -= 1
-        print("length ", self.length)
         # Could check with the length as well
+        # This does not look clean
         if not self.top.next:
             self.top = self.bottom
+            return self
+        if self.top == self.bottom:
+            self.bottom = None
             return self
         self.top = self.top.next
         return self
@@ -30,14 +33,14 @@ class Stack:
         self.length += 1
         old_top = self.top
         new_node = Node(value)
-
         # Could also check with if not self.top.next
         if self.length == 1:
             self.bottom = new_node
+            self.top = new_node
             return self
-
-        new_node.next = old_top
         self.top = new_node
+        # new_node.next = old_top, both work I think?
+        self.top.next = old_top
         return self
 
 
@@ -51,7 +54,3 @@ stack.pop()
 print("After pop peek 1 ", stack.peek())
 stack.pop()
 print("After pop peek 2 ", stack.peek())
-
-# discord
-# udemy
-# google
