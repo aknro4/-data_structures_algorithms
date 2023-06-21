@@ -62,14 +62,14 @@ class BinarySearchTree:
 
             # Compare which is larger and set current node accordingly
             # And return false if we have reached end of the tree. AKA None value.
-            if current_node.value >= new_node.value:
+            if current_node.value <= new_node.value:
+                if current_node.right is None:
+                    return False
+                current_node = current_node.rigt
+            else:
                 if current_node.left is None:
                     return False
                 current_node = current_node.left
-            else:
-                if current_node.right is None:
-                    return False
-                current_node = current_node.right
 
 
 #      9
