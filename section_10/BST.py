@@ -89,11 +89,11 @@ BST.insert(170)
 print(BST.lookup(1701))
 
 
+# Something to make something more readable
+# def traverse(node):
+#     tree = {'value': node['value'], 'left': None if node['left'] is None else traverse(node['left']),
+#             'right': None if node['right'] is None else traverse(node['right'])}
+#     return tree
 #
-def traverse(node):
-    tree = {'value': node['value'], 'left': None if node['left'] is None else traverse(node['left']),
-            'right': None if node['right'] is None else traverse(node['right'])}
-    return tree
-
-
-print(json.stringify(traverse(BST)))
+#
+# print(json.dumps(traverse(BST.root)))
