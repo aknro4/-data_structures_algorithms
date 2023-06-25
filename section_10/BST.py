@@ -73,44 +73,49 @@ class BinarySearchTree:
     # Value to be removed will be replaced with by going to right and then replace it with the left value.
     # If no left value, we replace it with the right value
     # If the value is last item, just delete it. AKA if no right value else replace it with left value
-    def remove(self,value):
+    def remove(self, value):
         if not self.lookup(value):
             return False
         current_node = self.root
         node_before = current_node
-        # Why I feel like this is really really bad code
+        # Why I feel like this is really, awful code, well comments do make it awful to understand
         while True:
             print("Current node: ", current_node.value)
             print("Node before: ", node_before.value)
             if current_node.value == value:
+                print("Current node right ", current_node.right, "Current node left ", current_node.left)
                 # DO the removal process.
                 # Case if at the end of the tree
-                print("am i here")
                 if current_node.right is None and current_node.left is None:
                     node_before.left = None
                     node_before.right = None
                     return self
                 last_node = current_node.right
-                before_last_node = last_node
+                # If the last node right is None then, set node before right to
+                # current nodes left value which is not Null.
+                if last_node is None:
+                    node_before.right = current_node.left
+                    print("Right was None")
+                    return self
                 while True:
-                    print(node_before.value)
+                    print("Last node value ", last_node.value)
                     # First go right and then Keep looping to the left until at the end of the tree
                     if last_node.left is None:
-                        # Check was the value larger than the previous value.
+                        print("last_node left should be NONE ", last_node.left)
+                        print("Node before, the node ", node_before.value , " to be deleted ",current_node.value)
+                        # Check was the value larger than the node before value.
                         # So we know do we insert last item to left or right for the node_before
                         if node_before.value <= value:
                             node_before.right = last_node
+                            print("right ", node_before.right.value)
                         else:
                             node_before.left = last_node
-                        # Replace from the deleted node right and left to last node.
+                            print("left ", node_before.left.value)
+                        # Replace from the deleted node right and left to last node
                         last_node.left = current_node.left
-                        last_node.right = current_node.right
-                        # Make the before last node left value None since it is moved.
-                        before_last_node.left = None
-                        print("Last node ",last_node.value)
+                        print("after if statements ", last_node.left, last_node.right)
                         return self
                     # Set the last node to left until left is None.
-                    before_last_node = last_node
                     last_node = last_node.left
 
             elif current_node.value <= value:
@@ -119,6 +124,7 @@ class BinarySearchTree:
             else:
                 node_before = current_node
                 current_node = current_node.left
+
 
 #      9
 #   4    20
@@ -131,14 +137,17 @@ BST.insert(20)
 BST.insert(4)
 BST.insert(1)
 BST.insert(6)
+BST.insert(5)
 BST.insert(15)
 BST.insert(170)
 BST.remove(6)
 
-print(BST.lookup(1701))
+print(BST.lookup(6))
+print(BST.lookup(4))
+print(BST.lookup(1))
+print(BST.lookup(5))
 
-
-# Something to make something more readable
+# Something to make something more readable which does not work and not cared to fix it. :D
 # def traverse(node):
 #     tree = {'value': node['value'], 'left': None if node['left'] is None else traverse(node['left']),
 #             'right': None if node['right'] is None else traverse(node['right'])}
