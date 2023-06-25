@@ -59,18 +59,66 @@ class BinarySearchTree:
             # Before comparing which is larger. Always check if we have found the value.
             if current_node.value == value:
                 return True
-
             # Compare which is larger and set current node accordingly
             # And return false if we have reached end of the tree. AKA None value.
             if current_node.value <= new_node.value:
                 if current_node.right is None:
                     return False
-                current_node = current_node.rigt
+                current_node = current_node.right
             else:
                 if current_node.left is None:
                     return False
                 current_node = current_node.left
 
+    # Value to be removed will be replaced with by going to right and then replace it with the left value.
+    # If no left value, we replace it with the right value
+    # If the value is last item, just delete it. AKA if no right value else replace it with left value
+    def remove(self,value):
+        if not self.lookup(value):
+            return False
+        current_node = self.root
+        node_before = current_node
+        # Why I feel like this is really really bad code
+        while True:
+            print("Current node: ", current_node.value)
+            print("Node before: ", node_before.value)
+            if current_node.value == value:
+                # DO the removal process.
+                # Case if at the end of the tree
+                print("am i here")
+                if current_node.right is None and current_node.left is None:
+                    node_before.left = None
+                    node_before.right = None
+                    return self
+                last_node = current_node.right
+                before_last_node = last_node
+                while True:
+                    print(node_before.value)
+                    # First go right and then Keep looping to the left until at the end of the tree
+                    if last_node.left is None:
+                        # Check was the value larger than the previous value.
+                        # So we know do we insert last item to left or right for the node_before
+                        if node_before.value <= value:
+                            node_before.right = last_node
+                        else:
+                            node_before.left = last_node
+                        # Replace from the deleted node right and left to last node.
+                        last_node.left = current_node.left
+                        last_node.right = current_node.right
+                        # Make the before last node left value None since it is moved.
+                        before_last_node.left = None
+                        print("Last node ",last_node.value)
+                        return self
+                    # Set the last node to left until left is None.
+                    before_last_node = last_node
+                    last_node = last_node.left
+
+            elif current_node.value <= value:
+                node_before = current_node
+                current_node = current_node.right
+            else:
+                node_before = current_node
+                current_node = current_node.left
 
 #      9
 #   4    20
@@ -85,6 +133,7 @@ BST.insert(1)
 BST.insert(6)
 BST.insert(15)
 BST.insert(170)
+BST.remove(6)
 
 print(BST.lookup(1701))
 
