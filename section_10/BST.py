@@ -144,7 +144,7 @@ BST.insert(5)
 BST.insert(15)
 BST.insert(7)
 BST.insert(170)
-BST.remove(7)
+BST.remove(4)
 
 print(BST.lookup(6))
 print(BST.lookup(4))
@@ -153,10 +153,10 @@ print(BST.lookup(5))
 print(BST.lookup(7))
 
 # Something to make something more readable which does not work and not cared to fix it. :D
-# def traverse(node):
-#     tree = {'value': node['value'], 'left': None if node['left'] is None else traverse(node['left']),
-#             'right': None if node['right'] is None else traverse(node['right'])}
-#     return tree
-#
-#
-# print(json.dumps(traverse(BST.root)))
+def traverse(node):
+    tree = {'value': node.value, 'left': None if node.left is None else traverse(node.left),
+            'right': None if node.right is None else traverse(node.right)}
+    return tree
+
+
+print(json.dumps(traverse(BST.root)))
