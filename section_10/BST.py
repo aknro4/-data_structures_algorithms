@@ -101,11 +101,11 @@ class BinarySearchTree:
                     print("Right was None")
                     return self
                 while True:
-                    print("Last node value ", last_node.value)
+                    print("Before if statements ", last_node.left, last_node.right)
                     # First go right and then Keep looping to the left until at the end of the tree
                     if last_node.left is None:
-                        print("last_node left should be NONE ", last_node.left)
-                        print("Node before, ", node_before.value , " the node to be deleted ",current_node.value)
+                        print("last_node left should be NONE ", last_node.left,last_node.value)
+                        print("Node before, ", node_before.value, " the node to be deleted ", current_node.value)
                         # Check was the value larger than the node before value.
                         # So we know do we insert last item to left or right for the node_before
                         if node_before.value <= value:
@@ -114,9 +114,13 @@ class BinarySearchTree:
                         else:
                             node_before.left = last_node
                             print("left ", node_before.left.value)
+
                         # Replace from the deleted node right and left to last node
                         last_node.left = current_node.left
+                        # This line breaks the JSON code some-reason?
+                        last_node.right = current_node.right
                         print("after if statements ", last_node.left, last_node.right)
+                        print(current_node.right.value)
                         return self
                     # Set the last node to left until left is None.
                     last_node = last_node.left
@@ -152,11 +156,12 @@ print(BST.lookup(1))
 print(BST.lookup(5))
 print(BST.lookup(7))
 
+
 # Something to make something more readable which does not work and not cared to fix it. :D
-def traverse(node):
-    tree = {'value': node.value, 'left': None if node.left is None else traverse(node.left),
-            'right': None if node.right is None else traverse(node.right)}
-    return tree
-
-
-print(json.dumps(traverse(BST.root)))
+# def traverse(node):
+#     tree = {'value': node.value, 'left': None if node.left is None else traverse(node.left),
+#             'right': None if node.right is None else traverse(node.right)}
+#     return tree
+#
+#
+# print(json.dumps(traverse(BST.root)))
