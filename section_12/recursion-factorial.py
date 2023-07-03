@@ -1,5 +1,4 @@
 answer_1 = 1
-answer_2 = 1
 
 
 def find_factorial_recursive(number):
@@ -13,7 +12,7 @@ def find_factorial_recursive(number):
 
 # Loops
 def find_factorial_iterative(number):
-    global answer_2
+    answer_2 = 1
     while number != 0:
         answer_2 *= number
         number -= 1
