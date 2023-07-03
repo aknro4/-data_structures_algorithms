@@ -9,21 +9,8 @@ first_num = 0
 last_num = 1
 
 
+# Too complicated lol
 def fibonacci_iterative(n):
-    global first_num, last_num, counter
-    result = first_num + last_num
-    if counter == n:
-        return result
-    first_num = last_num
-    last_num = result
-    counter += 1
-    return fibonacci_iterative(n)
-
-
-print(fibonacci_iterative(3))
-
-
-def fibonacci_recursive(n):
     counter_1 = 2
     first_number = 0
     last_number = 1
@@ -34,6 +21,23 @@ def fibonacci_recursive(n):
         first_number = last_number
         last_number = result
         counter_1 += 1
+
+
+print(fibonacci_iterative(3))
+
+
+def fibonacci_recursive(n):
+    global first_num, last_num, counter
+    result = first_num + last_num
+    if counter == n:
+        return result
+    first_num = last_num
+    last_num = result
+    counter += 1
+    return fibonacci_iterative(n)
+    # Simpler and more efficient... me dum fuck
+    # if n < 2: return n
+    # return fibonacci_iterative(n - 1) + fibonacci_iterative(n + 2)
 
 
 print(fibonacci_recursive(3))
