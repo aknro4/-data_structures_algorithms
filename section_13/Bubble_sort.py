@@ -14,8 +14,8 @@ def bubble_sort(array):
         if i >= length:
             length -= 1
             i = 0
-        print(array[i], array[i + 1])
-        print(array)
+        # print(array[i], array[i + 1])
+        # print(array)
         # Make them moves like a jagger
         if array[i] > array[i + 1]:
             array[i + 1], array[i] = array[i], array[i + 1]
@@ -25,5 +25,3 @@ def bubble_sort(array):
 
 bubble_sort(numbers)
 print(numbers)
-
-# Example version
