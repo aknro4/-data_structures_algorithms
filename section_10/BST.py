@@ -75,17 +75,17 @@ class BinarySearchTree:
     # If no left value, we replace it with the right value
     # If the value is last item, just delete it. AKA if no right value else replace it with left value
     def remove(self, value):
+        print("Remove called")
         if not self.lookup(value):
             return False
         current_node = self.root
         node_before = current_node
-        # Why I feel like this is really, awful code, well comments do make it awful to understand
+        # This is so bad. Like terrible
         while True:
             print("Current node: ", current_node.value)
             print("Node before: ", node_before.value)
+            # Value found. DO the removal process.
             if current_node.value == value:
-                print("Current node right ", current_node.right, "Current node left ", current_node.left)
-                # DO the removal process.
                 # Case if at the end of the tree
                 if current_node.right is None and current_node.left is None:
                     if value >= node_before.value:
@@ -93,42 +93,40 @@ class BinarySearchTree:
                     else:
                         node_before.left = None
                     return self
+                # Why are we doing this?
                 last_node = current_node.right
+
                 # If the last node right is None then, set node before right
                 # to current nodes left value which is not Null.
                 if last_node is None:
                     node_before.right = current_node.left
                     print("Right was None")
                     return self
+                # I don't like this...
                 while True:
-                    print("Before if statements ", last_node.left, last_node.right)
+                    # Set the last node to left until left is None.
+                    last_node = last_node.left
+                    print("Before if statements ", last_node)
                     # First go right and then Keep looping to the left until at the end of the tree
-                    if last_node.left is None:
-                        print("last_node left should be NONE ", last_node.left,last_node.value)
-                        print("Node before, ", node_before.value, " the node to be deleted ", current_node.value)
+                    if last_node is None:
                         # Check was the value larger than the node before value.
                         # So we know do we insert last item to left or right for the node_before
                         if node_before.value <= value:
                             node_before.right = last_node
-                            print("right ", node_before.right.value)
                         else:
                             node_before.left = last_node
-                            print("left ", node_before.left.value)
-
                         # Replace from the deleted node right and left to last node
+                        print(last_node, current_node.left.value)
                         last_node.left = current_node.left
                         # This line breaks the JSON code some-reason?
                         last_node.right = current_node.right
-                        print("after if statements ", last_node.left, last_node.right)
-                        print(current_node.right.value)
                         return self
-                    # Set the last node to left until left is None.
-                    last_node = last_node.left
 
-            elif current_node.value <= value:
+            # Find value to be removed
+            elif current_node.value < value:
                 node_before = current_node
                 current_node = current_node.right
-            else:
+            elif current_node.value > value:
                 node_before = current_node
                 current_node = current_node.left
 
@@ -148,22 +146,24 @@ BST.insert(5)
 BST.insert(15)
 BST.insert(7)
 BST.insert(170)
-BST.remove(4)
 BST.remove(5)
+BST.remove(4)
+
 
 print(BST.lookup(5))
 print(BST.lookup(6))
 print(BST.lookup(4))
 print(BST.lookup(1))
-print(BST.lookup(5))
 print(BST.lookup(7))
+print(BST.lookup(15))
 
 
 # Something to make something more readable which does not work and not cared to fix it. :D
-# def traverse(node):
-#     tree = {'value': node.value, 'left': None if node.left is None else traverse(node.left),
-#             'right': None if node.right is None else traverse(node.right)}
-#     return tree
-#
-#
-# print(json.dumps(traverse(BST.root)))
+# Issue seems to be in removing from the tree that breaks this code.
+def traverse(node):
+    tree = {'value': node.value, 'left': None if node.left is None else traverse(node.left),
+            'right': None if node.right is None else traverse(node.right)}
+    return tree
+
+
+print(json.dumps(traverse(BST.root)))
