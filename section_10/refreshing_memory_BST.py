@@ -20,7 +20,7 @@ class BST:
             # Keep track of the current node.
             current_node = self.root
             while True:
-                # If the current node value is smaller than the inputted value. Focus on the left side of the tree
+                # If the current node value is smaller than the inputted value. Focus on the right side of the tree
                 if current_node.value <= value:
                     # Check if there is a node on the right. if not new node is inserted.
                     if current_node.right is None:
@@ -67,6 +67,7 @@ class BST:
                 else:
                     current_node = current_node.left
 
+    # Does not work
     def remove(self, value):
         if not self.root:
             return False
