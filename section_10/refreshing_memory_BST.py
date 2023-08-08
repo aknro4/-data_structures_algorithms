@@ -67,29 +67,31 @@ class BST:
                 else:
                     current_node = current_node.left
 
-    # Does not work
     def remove(self, value):
         if not self.root:
             return False
 
         current_node = self.root
         parent_node = None
-        while current_node:
+        while True:
             # If value is larger than the current node go to the right
-            if value >= current_node.value:
+            if value > current_node.value:
                 parent_node = current_node
                 current_node = current_node.right
+
             # If value is smaller than the current node go to the left
             elif value < current_node.value:
                 parent_node = current_node
                 current_node = current_node.left
 
             # Value found, start deleting procedure.
-            elif value == current_node.value:
+            if value == current_node.value:
                 # Option 1, Node has no right child
                 if current_node.right is None:
+                    print("Option 1")
                     if parent_node is None:
                         self.root = current_node.left
+                        print("Parent node is None")
                     else:
                         # if parent is larger than current value, make current left child a child of a parent
                         if current_node.value < parent_node.value:
@@ -100,6 +102,7 @@ class BST:
 
                 # Option 2, Right child which does not have left child
                 elif current_node.right.left is None:
+                    print("Option 2")
                     current_node.left.right = current_node.left
                     if parent_node is None:
                         self.root = current_node.right
@@ -113,6 +116,7 @@ class BST:
 
                 # Option 3, Right child has no left child
                 else:
+                    print("Option 3")
                     # Find the Right child most left child.
                     left_most = current_node.right.left
                     left_most_parent = current_node.right
@@ -120,7 +124,7 @@ class BST:
                         left_most_parent = left_most
                         left_most = left_most.left
 
-                    # Parent's left subtree is now leftmost's right subtree
+                    # Parent's left subtree is now left most's right subtree
                     left_most_parent.left = left_most.right
                     left_most.left = current_node.left
                     left_most.right = current_node.right
@@ -134,7 +138,7 @@ class BST:
                         # if parent is smaller than current value, make right child a right child of the parent
                         else:
                             parent_node.right = left_most
-        return True
+                return False
 
 
 tree = BST()
@@ -149,8 +153,12 @@ tree.insert(15)
 tree.insert(7)
 tree.insert(170)
 tree.remove(5)
+tree.remove(4)
+tree.remove(15)
 
 print(tree.lookup(5))
+print(tree.lookup(4))
+print(tree.lookup(15))
 
 
 # Something to make something more readable which does not work and not cared to fix it. :D
